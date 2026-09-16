@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEEN AL NOOR TRAVELS | Admin</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f4f2ed; color: #1b2a22; }
+    .admin-wrap { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+    .panel { background: #fff; border: 1px solid #e6e0d5; border-radius: 18px; padding: 24px; box-shadow: 0 10px 26px rgba(17,40,29,.06); }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 28px; }
+    .stat { border: 1px solid #e6e0d5; border-radius: 16px; padding: 18px; background: #fbfaf6; }
+    .stat label { display: block; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #677368; }
+    .stat strong { display: block; font-size: 28px; margin-top: 8px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .stack { display: grid; gap: 16px; }
+    .field { display: grid; gap: 8px; }
+    .field input, .field select, .field textarea { width: 100%; padding: 12px 14px; font: inherit; border: 1px solid #ddd; border-radius: 12px; }
+    .button { display: inline-block; border: 0; border-radius: 28px; padding: 12px 18px; background: #0b5539; color: #fff; font-weight: 700; cursor: pointer; }
+    .button.secondary { background: #fff; color: #0b5539; border: 1px solid #0b5539; }
+    .small { font-size: 13px; color: #647267; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid #eee; }
+    th { color: #657368; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+    .type { display: inline-block; padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .income { background: rgba(13, 134, 79, 0.08); color: #0d7648; }
+    .expense { background: rgba(178, 63, 63, 0.08); color: #a82d2d; }
+    @media (max-width: 700px) { .row { grid-template-columns: 1fr; } .topbar { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="topbar">
+      <div>
+        <p class="eyebrow dark">Admin area</p>
+        <h2>DEEN AL NOOR TRAVELS</h2>
+      </div>
+      <button class="button secondary" id="logoutBtn" type="button">Log out</button>
+    </div>
+
+    <div class="grid">
+      <div class="stat"><label>Total Income</label><strong id="totalIncome">KSh 0</strong></div>
+      <div class="stat"><label>Total Expenses</label><strong id="totalExpenses">KSh 0</strong></div>
+      <div class="stat"><label>Net Profit</label><strong id="netProfit">KSh 0</strong></div>
+      <div class="stat"><label>Bookings</label><strong id="bookingCount">0</strong></div>
+    </div>
+
+    <div class="row">
+      <div class="panel stack">
+        <h3>Add package</h3>
+        <form id="packageForm">
+          <div class="field">
+            <label>Package name</label>
+            <input id="packageName" placeholder="Umrah Gold" required>
+          </div>
+          <div class="field">
+            <label>Category</label>
+            <input id="packageCategory" placeholder="Umrah" required>
+          </div>
+          <div class="field">
+            <label>Price (KSh)</label>
+            <input id="packagePrice" type="number" min="1" placeholder="175000" required>
+          </div>
+          <div class="field">
+            <label>Image URL</label>
+            <input id="packageImage" placeholder="https://images.unsplash.com/...">
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea id="packageDescription" rows="4" placeholder="Package details"></textarea>
+          </div>
+          <button class="button" type="submit">Add package</button>
+        </form>
+      </div>
+
+      <div class="panel stack">
+        <h3>Finance</h3>
+        <form id="incomeForm">
+          <div class="field">
+            <label>Customer</label>
+            <input id="incomeCustomer" placeholder="Customer name" required>
+          </div>
+          <div class="field">
+            <label>Package</label>
+            <input id="incomePackage" placeholder="Umrah Silver" required>
+          </div>
+          <div class="field">
+            <label>Amount (KSh)</label>
+            <input id="incomeAmount" type="number" min="1" placeholder="150000" required>
+          </div>
+          <div class="field">
+            <label>Payment method</label>
+            <select id="incomeMethod">
+              <option value="Cash">Cash</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="M-Pesa">M-Pesa</option>
+              <option value="Card">Card</option>
+            </select>
+          </div>
+          <button class="button" type="submit">Save payment</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:20px;">
+      <div class="panel stack">
+        <h3>Add expense</h3>
+        <form id="expenseForm">
+          <div class="field">
+            <label>Expense title</label>
+            <input id="expenseTitle" placeholder="Hotel deposit" required>
+          </div>
+          <div class="field">
+            <label>Category</label>
+            <select id="expenseCategory">
+              <option value="Hotel">Hotel</option>
+              <option value="Flight">Flight</option>
+              <option value="Visa">Visa</option>
+              <option value="Transport">Transport</option>
+              <option value="Salary">Salary</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Amount (KSh)</label>
+            <input id="expenseAmount" type="number" min="1" placeholder="45000" required>
+          </div>
+          <button class="button secondary" type="submit">Save expense</button>
+        </form>
+      </div>
+
+      <div class="panel stack">
+        <h3>Bookings</h3>
+        <div id="bookingList" class="small"></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:24px;">
+      <h3>Transactions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Method</th>
+          </tr>
+        </thead>
+        <tbody id="transactionTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE = {
+      packages: 'deenAlNoorPackages',
+      transactions: 'deenAlNoorTransactions',
+      bookings: 'deenAlNoorBookings'
+    };
+
+    const ADMIN_PASSWORD = 'deenalnoor123';
+
+    function read(key, fallback = []) {
+      try {
+        const value = JSON.parse(localStorage.getItem(key));
+        return Array.isArray(value) ? value : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function write(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function money(value) {
+      return 'KSh ' + Number(value || 0).toLocaleString('en-KE');
+    }
+
+    function ensureAdmin() {
+      const ok = sessionStorage.getItem('adminAccess') === 'true';
+      if (!ok) {
+        const entered = prompt('Enter admin password');
+        if (entered === ADMIN_PASSWORD) {
+          sessionStorage.setItem('adminAccess', 'true');
+          return true;
+        }
+        alert('Incorrect password. Redirecting to the public website.');
+        window.location.href = 'index.html';
+        return false;
+      }
+      return true;
+    }
+
+    function updateSummary() {
+      const tx = read(STORAGE.transactions, []);
+      const bookings = read(STORAGE.bookings, []);
+      const income = tx.filter(t => t.type === 'income').reduce((sum, t) => sum + Number(t.amount || 0), 0);
+      const expense = tx.filter(t => t.type === 'expense').reduce((sum, t) => sum + Number(t.amount || 0), 0);
+      document.getElementById('totalIncome').textContent = money(income);
+      document.getElementById('totalExpenses').textContent = money(expense);
+      document.getElementById('netProfit').textContent = money(income - expense);
+      document.getElementById('bookingCount').textContent = bookings.length;
+    }
+
+    function renderTransactions() {
+      const tbody = document.getElementById('transactionTableBody');
+      const tx = read(STORAGE.transactions, []);
+      tbody.innerHTML = tx.slice(0, 12).map(item => `
+        <tr>
+          <td>${new Date(item.date).toLocaleDateString('en-KE')}</td>
+          <td><span class="type ${item.type === 'income' ? 'income' : 'expense'}">${item.type}</span></td>
+          <td>${item.description}</td>
+          <td>${money(item.amount)}</td>
+          <td>${item.method || ''}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderBookings() {
+      const list = document.getElementById('bookingList');
+      const bookings = read(STORAGE.bookings, []);
+      if (!bookings.length) {
+        list.innerHTML = '<p class="small">No bookings yet.</p>';
+        return;
+      }
+
+      list.innerHTML = bookings.slice(0, 8).map(item => `
+        <div style="border:1px solid #eee;padding:10px;border-radius:12px;">
+          <strong>${item.name}</strong><br>
+          <span class="small">${item.packageName}</span><br>
+          <span class="small">${item.phone}</span><br>
+          <span class="small">${item.message || 'No message'}</span>
+        </div>
+      `).join('');
+    }
+
+    function savePackage(e) {
+      e.preventDefault();
+      const name = document.getElementById('packageName').value.trim();
+      const category = document.getElementById('packageCategory').value.trim();
+      const price = Number(document.getElementById('packagePrice').value);
+      const image = document.getElementById('packageImage').value.trim();
+      const description = document.getElementById('packageDescription').value.trim();
+      if (!name || !category || !price) {
+        alert('Please fill in package name, category and price.');
+        return;
+      }
+      const packages = read(STORAGE.packages, []);
+      packages.unshift({
+        id: Date.now().toString(),
+        name,
+        category,
+        price,
+        currency: 'KSh',
+        image: image || 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80',
+        description: description || 'Package information.',
+        startDate: '',
+        endDate: ''
+      });
+      write(STORAGE.packages, packages);
+      alert('Package added.');
+      document.getElementById('packageForm').reset();
+    }
+
+    function saveIncome(e) {
+      e.preventDefault();
+      const customer = document.getElementById('incomeCustomer').value.trim();
+      const packageName = document.getElementById('incomePackage').value.trim();
+      const amount = Number(document.getElementById('incomeAmount').value);
+      const method = document.getElementById('incomeMethod').value;
+      if (!customer || !packageName || !amount) {
+        alert('Please complete all payment details.');
+        return;
+      }
+      const tx = read(STORAGE.transactions, []);
+      tx.unshift({
+        id: Date.now().toString(),
+        type: 'income',
+        description: `${packageName} — ${customer}`,
+        amount,
+        method,
+        date: new Date().toISOString()
+      });
+      write(STORAGE.transactions, tx);
+      updateSummary();
+      renderTransactions();
+      document.getElementById('incomeForm').reset();
+      alert('Payment saved.');
+    }
+
+    function saveExpense(e) {
+      e.preventDefault();
+      const title = document.getElementById('expenseTitle').value.trim();
+      const category = document.getElementById('expenseCategory').value;
+      const amount = Number(document.getElementById('expenseAmount').value);
+      if (!title || !amount) {
+        alert('Please enter expense title and amount.');
+        return;
+      }
+      const tx = read(STORAGE.transactions, []);
+      tx.unshift({
+        id: Date.now().toString(),
+        type: 'expense',
+        description: `${title} — ${category}`,
+        amount,
+        method: 'Expense',
+        date: new Date().toISOString()
+      });
+      write(STORAGE.transactions, tx);
+      updateSummary();
+      renderTransactions();
+      document.getElementById('expenseForm').reset();
+      alert('Expense saved.');
+    }
+
+    function logout() {
+      sessionStorage.removeItem('adminAccess');
+      window.location.href = 'index.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!ensureAdmin()) return;
+      updateSummary();
+      renderTransactions();
+      renderBookings();
+      document.getElementById('packageForm').addEventListener('submit', savePackage);
+      document.getElementById('incomeForm').addEventListener('submit', saveIncome);
+      document.getElementById('expenseForm').addEventListener('submit', saveExpense);
+      document.getElementById('logoutBtn').addEventListener('click', logout);
+    });
+  </script>
+</body>
+</html>
