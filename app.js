@@ -52,6 +52,17 @@ const defaultPackages = [
     description: "Plan your December Umrah journey with our team. Contact us for dates, availability and package pricing.",
   },
   {
+    id: "comfort-5-star-fair-mount",
+    name: "Fair Mount Comfort Package",
+    category: "Comfort",
+    price: 2300,
+    currency: "USD",
+    startDate: "5-star Fair Mount – Clock Tower",
+    endDate: "",
+    image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80",
+    description: "A premium 5-star comfort package featuring Fair Mount and Clock Tower accommodation with elevated comfort, transport and travel support.",
+  },
+  {
     id: "ramadan-2027",
     name: "Last 10 Days of Ramadan Umrah Package",
     category: "Ramadan",
@@ -90,34 +101,26 @@ function saveData(key, data) {
 
 function getPackages() {
   const stored = getData(STORAGE_KEYS.packages);
-
-  const cleaned = (stored.length ? stored : defaultPackages).filter((pkg) => {
-    const name = pkg.name || "";
-    const start = pkg.startDate || "";
-    const end = pkg.endDate || "";
-    const price = Number(pkg.price) || 0;
-
-    const isOldOctoberDuplicate =
-      /October/i.test(name) &&
-      /5 October 2026/i.test(start) &&
-      /15 October 2026/i.test(end) &&
-      price >= 150000;
-
-    return !isOldOctoberDuplicate;
-  });
-
-  if (!cleaned.length) {
+  if (!stored.length) {
     saveData(STORAGE_KEYS.packages, defaultPackages);
     return defaultPackages;
   }
 
-  const updated = [...cleaned];
+  const updated = [...stored];
   defaultPackages.forEach((defaultPackage) => {
     const existing = updated.find((pkg) => pkg.id === defaultPackage.id || pkg.name === defaultPackage.name);
     if (!existing) updated.push(defaultPackage);
     else {
       if (defaultPackage.id === "oct-2026") existing.price = 1300;
       if (defaultPackage.id === "dec-2026") existing.price = 1350;
+      if (defaultPackage.id === "comfort-5-star-fair-mount") {
+        existing.name = "Fair Mount Comfort Package";
+        existing.category = "Comfort";
+        existing.price = 2300;
+        existing.currency = "USD";
+        existing.startDate = "5-star Fair Mount – Clock Tower";
+        existing.description = "A premium 5-star comfort package featuring Fair Mount and Clock Tower accommodation with elevated comfort, transport and travel support.";
+      }
       if (defaultPackage.id === "ramadan-2027") {
         existing.name = "Last 10 Days of Ramadan Umrah Package";
         existing.price = 1600;
