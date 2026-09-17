@@ -121,6 +121,7 @@ function getPackages() {
     else {
       if (defaultPackage.id === "oct-2026") existing.price = 1300;
       if (defaultPackage.id === "dec-2026") existing.price = 1350;
+      if (defaultPackage.id === "nov-2026") existing.image = "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80";
       if (defaultPackage.id === "comfort-5-star-fair-mount") {
         existing.name = "Fair Mount Five Star Package";
         existing.category = "Comfort";
