@@ -53,14 +53,14 @@ const defaultPackages = [
   },
   {
     id: "comfort-5-star-fair-mount",
-    name: "Fair Mount Comfort Package",
+    name: "Fair Mount Five Star Package",
     category: "Comfort",
     price: 2300,
     currency: "USD",
-    startDate: "5-star Fair Mount – Clock Tower",
+    startDate: "Clock Tower Kaabah View",
     endDate: "",
     image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80",
-    description: "A premium 5-star comfort package featuring Fair Mount and Clock Tower accommodation with elevated comfort, transport and travel support.",
+    description: "A premium five-star Fair Mount package with stunning Clock Tower Kaabah view, elevated comfort, transport and travel support.",
   },
   {
     id: "ramadan-2027",
@@ -114,12 +114,12 @@ function getPackages() {
       if (defaultPackage.id === "oct-2026") existing.price = 1300;
       if (defaultPackage.id === "dec-2026") existing.price = 1350;
       if (defaultPackage.id === "comfort-5-star-fair-mount") {
-        existing.name = "Fair Mount Comfort Package";
+        existing.name = "Fair Mount Five Star Package";
         existing.category = "Comfort";
         existing.price = 2300;
         existing.currency = "USD";
-        existing.startDate = "5-star Fair Mount – Clock Tower";
-        existing.description = "A premium 5-star comfort package featuring Fair Mount and Clock Tower accommodation with elevated comfort, transport and travel support.";
+        existing.startDate = "Clock Tower Kaabah View";
+        existing.description = "A premium five-star Fair Mount package with stunning Clock Tower Kaabah view, elevated comfort, transport and travel support.";
       }
       if (defaultPackage.id === "ramadan-2027") {
         existing.name = "Last 10 Days of Ramadan Umrah Package";
