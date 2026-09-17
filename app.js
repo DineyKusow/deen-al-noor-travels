@@ -26,7 +26,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "5 October 2026",
     endDate: "15 October 2026",
-    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
     description: "A comfortable October Umrah package featuring accommodation, transport, visa support and spiritual guidance.",
   },
   {
@@ -37,7 +37,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "4 November 2026",
     endDate: "14 November 2026",
-    image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
     description: "Comfortable Umrah travel with coordination for accommodation, transport, visa support and Ziyaaraat.",
   },
   {
@@ -48,7 +48,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "December 2026",
     endDate: "",
-    image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
     description: "Plan your December Umrah journey with our team. Contact us for dates, availability and package pricing.",
   },
   {
@@ -70,7 +70,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "Last 10 days of Ramadan 2027",
     endDate: "",
-    image: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
     description: "A special Umrah journey during the last ten blessed days of Ramadan, with travel support, accommodation, visa assistance and spiritual guidance.",
   },
   {
@@ -81,7 +81,7 @@ const defaultPackages = [
     currency: "KSh",
     startDate: "2027",
     endDate: "",
-    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1565358502763-7cf0ad8fe8bd?auto=format&fit=crop&w=1200&q=80",
     description: "Register your interest for Hajj 2027 and contact our team for package availability and details.",
   },
 ];
@@ -121,7 +121,9 @@ function getPackages() {
     else {
       if (defaultPackage.id === "oct-2026") existing.price = 1300;
       if (defaultPackage.id === "dec-2026") existing.price = 1350;
-      if (defaultPackage.id === "nov-2026") existing.image = "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80";
+      if (defaultPackage.id === "nov-2026") {
+        existing.image = "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80";
+      }
       if (defaultPackage.id === "comfort-5-star-fair-mount") {
         existing.name = "Fair Mount Five Star Package";
         existing.category = "Comfort";
@@ -137,7 +139,10 @@ function getPackages() {
         existing.category = "Ramadan";
         existing.startDate = "Last 10 days of Ramadan 2027";
         existing.description = "A special Umrah journey during the last ten blessed days of Ramadan, with travel support, accommodation, visa assistance and spiritual guidance.";
-        existing.image = "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80";
+        existing.image = "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80";
+      }
+      if (defaultPackage.id === "hajj-2027") {
+        existing.image = "https://images.unsplash.com/photo-1565358502763-7cf0ad8fe8bd?auto=format&fit=crop&w=1200&q=80";
       }
     }
   });
