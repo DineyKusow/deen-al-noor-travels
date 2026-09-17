@@ -26,7 +26,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "5 October 2026",
     endDate: "15 October 2026",
-    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80",
     description: "A comfortable October Umrah package featuring accommodation, transport, visa support and spiritual guidance.",
   },
   {
@@ -37,7 +37,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "4 November 2026",
     endDate: "14 November 2026",
-    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80",
     description: "Comfortable Umrah travel with coordination for accommodation, transport, visa support and Ziyaaraat.",
   },
   {
@@ -48,7 +48,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "December 2026",
     endDate: "",
-    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=1200&q=80",
     description: "Plan your December Umrah journey with our team. Contact us for dates, availability and package pricing.",
   },
   {
@@ -122,7 +122,7 @@ function getPackages() {
       if (defaultPackage.id === "oct-2026") existing.price = 1300;
       if (defaultPackage.id === "dec-2026") existing.price = 1350;
       if (defaultPackage.id === "nov-2026") {
-        existing.image = "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80";
+        existing.image = "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80";
       }
       if (defaultPackage.id === "comfort-5-star-fair-mount") {
         existing.name = "Fair Mount Five Star Package";
