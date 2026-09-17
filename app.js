@@ -64,6 +64,9 @@ const defaultPackages = [
   },
 ];
 
+const HIDDEN_PACKAGE_IDS = ["sep-2026", "oct-2026"];
+const HIDDEN_PACKAGE_NAMES = ["September Umrah Package", "October Umrah Package"];
+
 function getData(key, fallback = []) {
   try {
     const value = JSON.parse(localStorage.getItem(key));
@@ -78,8 +81,11 @@ function saveData(key, data) {
 }
 
 function getPackages() {
-  const stored = getData(STORAGE_KEYS.packages)
-    .filter((pkg) => !["sep-2026", "oct-2026"].includes(pkg.id) && !["September Umrah Package", "October Umrah Package"].includes(pkg.name));
+  const stored = getData(STORAGE_KEYS.packages).filter((pkg) => {
+    const hiddenId = HIDDEN_PACKAGE_IDS.includes(pkg.id);
+    const hiddenName = HIDDEN_PACKAGE_NAMES.includes(pkg.name);
+    return !hiddenId && !hiddenName;
+  });
 
   if (!stored.length) {
     saveData(STORAGE_KEYS.packages, defaultPackages);
@@ -113,8 +119,9 @@ function getPackages() {
     }
   });
 
-  saveData(STORAGE_KEYS.packages, updated);
-  return updated;
+  const cleaned = updated.filter((pkg) => !HIDDEN_PACKAGE_IDS.includes(pkg.id) && !HIDDEN_PACKAGE_NAMES.includes(pkg.name));
+  saveData(STORAGE_KEYS.packages, cleaned);
+  return cleaned;
 }
 
 function getTransactions() { return getData(STORAGE_KEYS.transactions); }
