@@ -90,12 +90,28 @@ function saveData(key, data) {
 
 function getPackages() {
   const stored = getData(STORAGE_KEYS.packages);
-  if (!stored.length) {
+
+  const cleaned = (stored.length ? stored : defaultPackages).filter((pkg) => {
+    const name = pkg.name || "";
+    const start = pkg.startDate || "";
+    const end = pkg.endDate || "";
+    const price = Number(pkg.price) || 0;
+
+    const isOldOctoberDuplicate =
+      /October/i.test(name) &&
+      /5 October 2026/i.test(start) &&
+      /15 October 2026/i.test(end) &&
+      price >= 150000;
+
+    return !isOldOctoberDuplicate;
+  });
+
+  if (!cleaned.length) {
     saveData(STORAGE_KEYS.packages, defaultPackages);
     return defaultPackages;
   }
 
-  const updated = [...stored];
+  const updated = [...cleaned];
   defaultPackages.forEach((defaultPackage) => {
     const existing = updated.find((pkg) => pkg.id === defaultPackage.id || pkg.name === defaultPackage.name);
     if (!existing) updated.push(defaultPackage);
