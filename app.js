@@ -8,6 +8,28 @@ const WHATSAPP_NUMBER = "254725312074";
 
 const defaultPackages = [
   {
+    id: "sep-2026",
+    name: "September Umrah Package",
+    category: "Umrah",
+    price: 1300,
+    currency: "USD",
+    startDate: "17 September 2026",
+    endDate: "27 September 2026",
+    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
+    description: "A carefully arranged Umrah journey with flights, visa assistance, accommodation, transportation and pilgrimage support.",
+  },
+  {
+    id: "oct-2026",
+    name: "October Umrah Package",
+    category: "Umrah",
+    price: 1300,
+    currency: "USD",
+    startDate: "5 October 2026",
+    endDate: "15 October 2026",
+    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80",
+    description: "A comfortable October Umrah package featuring accommodation, transport, visa support and spiritual guidance.",
+  },
+  {
     id: "nov-2026",
     name: "November Umrah Package",
     category: "Umrah",
@@ -64,8 +86,8 @@ const defaultPackages = [
   },
 ];
 
-const HIDDEN_PACKAGE_IDS = ["sep-2026", "oct-2026"];
-const HIDDEN_PACKAGE_NAMES = ["September Umrah Package", "October Umrah Package"];
+const HIDDEN_PACKAGE_IDS = ["sep-2026"];
+const HIDDEN_PACKAGE_NAMES = ["September Umrah Package"];
 
 function getData(key, fallback = []) {
   try {
