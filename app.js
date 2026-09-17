@@ -15,7 +15,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "17 September 2026",
     endDate: "27 September 2026",
-    image: "https://images.unsplash.com/photo-1565552645632-d725f011c3f7?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
     description: "A carefully arranged Umrah journey with flights, visa assistance, accommodation, transportation and pilgrimage support.",
   },
   {
@@ -26,7 +26,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "5 October 2026",
     endDate: "15 October 2026",
-    image: "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80",
     description: "A comfortable October Umrah package featuring accommodation, transport, visa support and spiritual guidance.",
   },
   {
@@ -37,7 +37,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "4 November 2026",
     endDate: "14 November 2026",
-    image: "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80",
     description: "Comfortable Umrah travel with coordination for accommodation, transport, visa support and Ziyaaraat.",
   },
   {
@@ -48,7 +48,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "December 2026",
     endDate: "",
-    image: "https://images.unsplash.com/photo-1590420553376-7d7d3f0d36ae?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=1200&q=80",
     description: "Plan your December Umrah journey with our team. Contact us for dates, availability and package pricing.",
   },
   {
@@ -59,7 +59,7 @@ const defaultPackages = [
     currency: "USD",
     startDate: "Clock Tower Kaabah View",
     endDate: "",
-    image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1565358502763-7cf0ad8fe8bd?auto=format&fit=crop&w=1200&q=80",
     description: "A premium five-star Fair Mount package with stunning Clock Tower Kaabah view, elevated comfort, transport and travel support.",
   },
   {
@@ -81,7 +81,7 @@ const defaultPackages = [
     currency: "KSh",
     startDate: "2027",
     endDate: "",
-    image: "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=1200&q=80",
     description: "Register your interest for Hajj 2027 and contact our team for package availability and details.",
   },
 ];
@@ -120,6 +120,7 @@ function getPackages() {
         existing.currency = "USD";
         existing.startDate = "Clock Tower Kaabah View";
         existing.description = "A premium five-star Fair Mount package with stunning Clock Tower Kaabah view, elevated comfort, transport and travel support.";
+        existing.image = "https://images.unsplash.com/photo-1565358502763-7cf0ad8fe8bd?auto=format&fit=crop&w=1200&q=80";
       }
       if (defaultPackage.id === "ramadan-2027") {
         existing.name = "Last 10 Days of Ramadan Umrah Package";
@@ -127,6 +128,7 @@ function getPackages() {
         existing.category = "Ramadan";
         existing.startDate = "Last 10 days of Ramadan 2027";
         existing.description = "A special Umrah journey during the last ten blessed days of Ramadan, with travel support, accommodation, visa assistance and spiritual guidance.";
+        existing.image = "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80";
       }
     }
   });
