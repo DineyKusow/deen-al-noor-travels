@@ -8,28 +8,6 @@ const WHATSAPP_NUMBER = "254725312074";
 
 const defaultPackages = [
   {
-    id: "sep-2026",
-    name: "September Umrah Package",
-    category: "Umrah",
-    price: 1300,
-    currency: "USD",
-    startDate: "17 September 2026",
-    endDate: "27 September 2026",
-    image: "https://images.unsplash.com/photo-1546412414-8035e1776c90?auto=format&fit=crop&w=1200&q=80",
-    description: "A carefully arranged Umrah journey with flights, visa assistance, accommodation, transportation and pilgrimage support.",
-  },
-  {
-    id: "oct-2026",
-    name: "October Umrah Package",
-    category: "Umrah",
-    price: 1300,
-    currency: "USD",
-    startDate: "5 October 2026",
-    endDate: "15 October 2026",
-    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80",
-    description: "A comfortable October Umrah package featuring accommodation, transport, visa support and spiritual guidance.",
-  },
-  {
     id: "nov-2026",
     name: "November Umrah Package",
     category: "Umrah",
@@ -100,7 +78,9 @@ function saveData(key, data) {
 }
 
 function getPackages() {
-  const stored = getData(STORAGE_KEYS.packages);
+  const stored = getData(STORAGE_KEYS.packages)
+    .filter((pkg) => !["sep-2026", "oct-2026"].includes(pkg.id) && !["September Umrah Package", "October Umrah Package"].includes(pkg.name));
+
   if (!stored.length) {
     saveData(STORAGE_KEYS.packages, defaultPackages);
     return defaultPackages;
@@ -220,7 +200,7 @@ function setupBookingForm() {
     const bookings = getBookings();
     bookings.unshift(booking);
     saveData(STORAGE_KEYS.bookings, bookings);
-    const whatsappText = encodeURIComponent(`Assalamu Alaikum DEEN AL NOOR TRAVELS,\n\nName: ${name}\nPhone: ${phone}\nPackage: ${packageName}\nMessage: ${message || "I would like more information and booking assistance."}`);
+    const whatsappText = encodeURIComponent(`Assalamu Alaikum DEEN AL NOOR TRAVELS,\n\nName: ${name}\nPhone: ${phone}\nPackage: ${packageName}\nMessage: ${message || "I would like more information."}`);
     form.reset();
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappText}`, "_blank", "noopener");
     alert("Your inquiry has been saved. WhatsApp will open so you can send it directly to DEEN AL NOOR TRAVELS.");
@@ -232,7 +212,7 @@ function renderAdminPackages() {
   if (!list) return;
   const packages = getPackages();
   if (!packages.length) { list.innerHTML = "<p>No packages added yet.</p>"; return; }
-  list.innerHTML = packages.map((pkg) => `<div class="list-item"><div><strong>${escapeHTML(pkg.name)}</strong><small>${escapeHTML(pkg.category || "Travel")} ${Number(pkg.price) > 0 ? ` • ${formatMoney(pkg.price, pkg.currency || "KSh")}` : ""}</small></div><button type="button" class="btn btn-outline delete-package" data-id="${escapeHTML(pkg.id)}">Delete</button></div>`).join("");
+  list.innerHTML = packages.map((pkg) => `<div class="list-item"><div><strong>${escapeHTML(pkg.name)}</strong><small>${escapeHTML(pkg.category || "Travel")} ${Number(pkg.price) > 0 ? `• ${formatMoney(pkg.price, pkg.currency || "KSh")}` : "• Contact us"}</small></div><button class="delete-package" data-id="${escapeHTML(pkg.id)}">Delete</button></div>`).join("");
   list.querySelectorAll(".delete-package").forEach((button) => button.addEventListener("click", () => {
     const id = button.dataset.id;
     const pkg = getPackages().find((item) => item.id === id);
@@ -295,7 +275,7 @@ function renderTransactions() {
   if (!tbody) return;
   const transactions = getTransactions();
   if (!transactions.length) { tbody.innerHTML = '<tr><td colspan="5">No transactions recorded yet.</td></tr>'; return; }
-  tbody.innerHTML = transactions.map((transaction) => `<tr><td>${new Date(transaction.date).toLocaleDateString("en-KE")}</td><td><span class="type-tag ${escapeHTML(transaction.type)}">${escapeHTML(transaction.type)}</span></td><td>${escapeHTML(transaction.description)}</td><td>${formatMoney(transaction.amount)}</td><td>${escapeHTML(transaction.method || "-")}</td></tr>`).join("");
+  tbody.innerHTML = transactions.map((transaction) => `<tr><td>${new Date(transaction.date).toLocaleDateString("en-KE")}</td><td><span class="type-tag ${escapeHTML(transaction.type)}">${escapeHTML(transaction.type)}</span></td><td>${escapeHTML(transaction.description)}</td><td>${formatMoney(transaction.amount, transaction.method === "USD" ? "USD" : "KSh")}</td><td>${escapeHTML(transaction.method || "—")}</td></tr>`).join("");
 }
 
 function updateFinanceSummary() {
@@ -317,7 +297,7 @@ function renderBookings() {
   if (!tbody) return;
   const bookings = getBookings();
   if (!bookings.length) { tbody.innerHTML = '<tr><td colspan="5">No booking inquiries yet.</td></tr>'; return; }
-  tbody.innerHTML = bookings.map((booking) => `<tr><td>${escapeHTML(booking.name)}</td><td>${escapeHTML(booking.phone)}</td><td>${escapeHTML(booking.packageName)}</td><td>${escapeHTML(booking.message || "-")}</td><td>${new Date(booking.date).toLocaleString("en-KE")}</td></tr>`).join("");
+  tbody.innerHTML = bookings.map((booking) => `<tr><td>${escapeHTML(booking.name)}</td><td>${escapeHTML(booking.phone)}</td><td>${escapeHTML(booking.packageName)}</td><td>${escapeHTML(booking.message || "—")}</td><td>${new Date(booking.date).toLocaleDateString("en-KE")}</td></tr>`).join("");
 }
 
 function setupLogout() {
