@@ -44,7 +44,7 @@ const defaultPackages = [
     id: "dec-2026",
     name: "December Umrah Package",
     category: "Umrah",
-    price: 0,
+    price: 1350,
     currency: "USD",
     startDate: "December 2026",
     endDate: "",
@@ -101,6 +101,7 @@ function getPackages() {
     if (!existing) updated.push(defaultPackage);
     else {
       if (defaultPackage.id === "oct-2026") existing.price = 1300;
+      if (defaultPackage.id === "dec-2026") existing.price = 1350;
       if (defaultPackage.id === "ramadan-2027") {
         existing.name = "Last 10 Days of Ramadan Umrah Package";
         existing.price = 1600;
