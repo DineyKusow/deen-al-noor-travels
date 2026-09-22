@@ -1,20 +1,23 @@
-# DEEN AL NOOR TRAVELS
+# Deen Al Noor Travels
 
-Public Hajj and Umrah travel agency website for Nairobi, Kenya.
+Deen Al Noor Travels is a Hajj and Umrah agency website with a browser-based management dashboard.
 
-## Run locally
-Open `index.html` in a browser, or run:
+## Management system
 
-```bash
-python -m http.server 8000
-```
+Open `admin.html` to use the management workspace. It includes:
 
-Then visit http://localhost:8000.
+- Dashboard: income, expenses, profit, outstanding balances and trip overview
+- Clients / pilgrims: passport, contact, package and balance records
+- Umrah packages: dates, price, hotel, transport and included services
+- Payments: deposits, payment history, references and printable receipts
+- Expenses: visa, flight, hotel, transport, licence, staff and other costs
+- Bookings: flight, accommodation and transport confirmations
+- Reports: financial totals and profit by package, printable to PDF
+- User account placeholder with admin/staff roles
+- WhatsApp payment reminders and client communication links
 
-## Contact
-- Office: BBS MALL Eastleigh, Nairobi
-- Kenya/WhatsApp: +254 725 312 074
-- Saudi Arabia: +966 56 125 9363
-- Email: info@deenalnoortravels.com
+The current GitHub Pages-friendly implementation uses `localStorage`, so data is stored in the browser used to enter it. The user accounts and WhatsApp links are interface-ready; production deployment should connect them to a secure backend, database, authentication provider and WhatsApp Business Cloud API.
 
-The current front end stores inquiries and packages in browser localStorage. It is a demo and should be connected to a secure backend before handling real financial or customer data.
+## Existing public website
+
+Open `index.html` for the public Deen Al Noor Travels website and package inquiry form.
