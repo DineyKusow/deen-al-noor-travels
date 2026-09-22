@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  role          Role      @default(STAFF)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  clients       Client[]
+  payments      Payment[]
+  expenses      Expense[]
+  bookings      Booking[]
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  FINANCE
+  STAFF
+}
+
+model Client {
+  id              String    @id @default(cuid())
+  name            String
+  phone           String
+  passportNumber  String?
+  passportExpiry  DateTime?
+  nextOfKin       String?
+  packageName     String?
+  notes           String?
+  balance         Decimal   @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  userId          String?
+  user            User?     @relation(fields: [userId], references: [id])
+  payments        Payment[]
+  bookings        Booking[]
+}
+
+model Package {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  price       Decimal
+  startDate   DateTime?
+  endDate     DateTime?
+  hotel       String?
+  transport   String?
+  services    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  payments    Payment[]
+  expenses    Expense[]
+  bookings    Booking[]
+}
+
+model Payment {
+  id          String    @id @default(cuid())
+  amount      Decimal
+  method      String
+  reference   String?
+  type        PaymentType @default(DEPOSIT)
+  clientId    String?
+  client      Client?   @relation(fields: [clientId], references: [id])
+  packageId   String?
+  package     Package?  @relation(fields: [packageId], references: [id])
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now())
+}
+
+enum PaymentType {
+  DEPOSIT
+  BALANCE
+  INSTALLMENT
+}
+
+model Expense {
+  id          String    @id @default(cuid())
+  category    String
+  description String
+  amount      Decimal
+  tripName    String?
+  packageId   String?
+  package     Package?  @relation(fields: [packageId], references: [id])
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now())
+}
+
+model Booking {
+  id            String    @id @default(cuid())
+  clientId      String?
+  client        Client?   @relation(fields: [clientId], references: [id])
+  packageId     String?
+  package       Package?  @relation(fields: [packageId], references: [id])
+  bookingType   String
+  provider      String
+  confirmation  String?
+  startDate     DateTime?
+  endDate       DateTime?
+  status        String    @default("Confirmed")
+  userId        String?
+  user          User?     @relation(fields: [userId], references: [id])
+  createdAt     DateTime  @default(now())
+}
+
+model Invoice {
+  id          String    @id @default(cuid())
+  number      String    @unique
+  clientName  String
+  packageName String?
+  total       Decimal
+  paid        Decimal
+  status      String    @default("OPEN")
+  createdAt   DateTime  @default(now())
+}

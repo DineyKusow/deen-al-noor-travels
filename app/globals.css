@@ -1,0 +1,74 @@
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { authOptions } from '@/lib/auth';
+import prisma from '@/lib/prisma';
+
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
+  if (!session) redirect('/login');
+
+  const [clients, packages, payments, expenses, bookings] = await Promise.all([
+    prisma.client.count(),
+    prisma.package.count(),
+    prisma.payment.aggregate({ _sum: { amount: true } }),
+    prisma.expense.aggregate({ _sum: { amount: true } }),
+    prisma.booking.count(),
+  ]);
+
+  const totalIncome = Number(payments._sum.amount ?? 0);
+  const totalExpenses = Number(expenses._sum.amount ?? 0);
+  const profit = totalIncome - totalExpenses;
+
+  return (
+    <main className="dashboard-shell">
+      <aside className="dashboard-sidebar">
+        <h2>Deen Al Noor</h2>
+        <nav>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/dashboard/clients">Clients</a>
+          <a href="/dashboard/packages">Packages</a>
+          <a href="/dashboard/payments">Payments</a>
+          <a href="/dashboard/expenses">Expenses</a>
+          <a href="/dashboard/reports">Reports</a>
+        </nav>
+      </aside>
+
+      <section className="dashboard-main">
+        <header className="topbar">
+          <div>
+            <h1>Travel Management Dashboard</h1>
+            <p>Welcome back, {session.user?.name ?? 'Admin'}</p>
+          </div>
+          <a href="/api/auth/signout" className="logout-link">Sign out</a>
+        </header>
+
+        <div className="stats-grid">
+          <div className="stat-card">
+            <label>Total income</label>
+            <strong>KSh {totalIncome.toLocaleString('en-KE')}</strong>
+          </div>
+          <div className="stat-card">
+            <label>Total expenses</label>
+            <strong>KSh {totalExpenses.toLocaleString('en-KE')}</strong>
+          </div>
+          <div className="stat-card">
+            <label>Net profit</label>
+            <strong>KSh {profit.toLocaleString('en-KE')}</strong>
+          </div>
+          <div className="stat-card">
+            <label>Clients</label>
+            <strong>{clients}</strong>
+          </div>
+          <div className="stat-card">
+            <label>Packages</label>
+            <strong>{packages}</strong>
+          </div>
+          <div className="stat-card">
+            <label>Bookings</label>
+            <strong>{bookings}</strong>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
